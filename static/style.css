@@ -1,0 +1,124 @@
+:root {
+    --bg-color: #121212;
+    --card-bg: #1e1e1e;
+    --sidebar-bg: #181818;
+    --text-main: #e0e0e0;
+    --accent: #ff0266;        /* Zar Modu Pembesi */
+    --accent-sec: #03dac6;    /* Turkuaz */
+    --button-bg: #3700b3;
+    --border-color: #333;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    overflow: hidden;
+}
+
+/* --- Sidebar (Menü) --- */
+.sidebar {
+    width: 250px;
+    background-color: var(--sidebar-bg);
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.brand {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: var(--accent);
+    margin-bottom: 40px;
+    text-align: center;
+    letter-spacing: 2px;
+}
+
+.nav-btn {
+    background: none;
+    border: none;
+    color: #888;
+    padding: 15px;
+    text-align: left;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: 0.3s;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-btn:hover { background-color: rgba(255,255,255,0.05); color: #fff; }
+.nav-btn.active { background-color: var(--button-bg); color: #fff; font-weight: bold; }
+
+/* --- Main Content --- */
+.main-content {
+    flex: 1;
+    padding: 30px;
+    overflow-y: auto;
+    position: relative;
+}
+
+.page-section { display: none; animation: fadeIn 0.3s ease; }
+.page-section.active { display: block; }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+/* --- Ortak Elementler --- */
+h1, h2 { color: #fff; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
+.btn {
+    border: none; color: white; padding: 10px 20px;
+    border-radius: 6px; cursor: pointer; transition: 0.2s;
+    font-weight: bold; display: inline-flex; align-items: center; gap: 8px;
+}
+.btn-primary { background-color: var(--button-bg); }
+.btn-primary:hover { background-color: #5600e8; }
+.btn-accent { background-color: var(--accent); }
+.btn-success { background-color: #4caf50; }
+
+input[type="text"], input[type="file"] {
+    padding: 12px; border-radius: 6px; border: 1px solid #555;
+    background-color: #2c2c2c; color: #fff; width: 100%; max-width: 400px;
+}
+
+/* --- Archive Grid --- */
+.grid-container {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 15px; margin-top: 20px;
+}
+.card {
+    background-color: var(--card-bg); border-radius: 8px; overflow: hidden;
+    cursor: pointer; border: 1px solid var(--border-color); transition: 0.2s;
+}
+.card:hover { transform: translateY(-5px); border-color: var(--accent-sec); }
+.card img { width: 100%; height: 240px; object-fit: cover; }
+.card-content { padding: 10px; }
+.card-name { font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* --- Downloader Styles --- */
+.stats-box {
+    background: var(--card-bg); padding: 20px; border-radius: 10px;
+    margin-top: 20px; border: 1px solid var(--accent); display: none;
+}
+.log-area {
+    background: #000; color: #0f0; font-family: monospace;
+    padding: 15px; height: 200px; overflow-y: auto; border-radius: 6px; margin-top: 15px;
+    font-size: 0.9em; border: 1px solid #333;
+}
+.drop-zone {
+    border: 2px dashed #555; padding: 30px; text-align: center;
+    border-radius: 10px; margin-top: 20px; cursor: pointer; transition: 0.2s;
+}
+.drop-zone:hover { border-color: var(--accent-sec); background: rgba(3, 218, 198, 0.05); }
+
+/* --- Modal --- */
+.modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(5px); justify-content: center; align-items: center; }
+.modal-content { background: var(--card-bg); padding: 20px; border-radius: 10px; width: 80%; max-height: 90vh; overflow-y: auto; display: flex; gap: 20px; border: 1px solid var(--border-color); }
+.close-btn { position: absolute; top: 20px; right: 30px; font-size: 30px; cursor: pointer; color: #fff; }

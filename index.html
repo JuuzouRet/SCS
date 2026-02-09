@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCS - Smart Character Suite</title>
+    <link rel="stylesheet" href="static/style.css">
+    <!-- JSZip kütüphanesi (Tarayıcıda ZIP yapmak için) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="static/blocklist.js"></script>
+</head>
+<body>
+
+    <!-- Yan Menü -->
+    <div class="sidebar">
+        <div class="brand">⚡ SCS Suite</div>
+        <button class="nav-btn active" onclick="showPage('downloader')">📥 İndirici & Analiz</button>
+        <button class="nav-btn" onclick="showPage('archive')">📂 Arşiv & Önizleme</button>
+        <button class="nav-btn" onclick="showPage('converter')">🔄 Dönüştürücü</button>
+    </div>
+
+    <!-- Ana İçerik -->
+    <div class="main-content">
+        
+        <!-- SAYFA 1: İNDİRİCİ (Eski Python Kodlarının JS Hali) -->
+        <div id="downloader" class="page-section active">
+            <h1>Chub.ai İndirici & Analiz</h1>
+            <p>İstediğin etiketi gir, karakter sayısını gör ve tarayıcı üzerinden indir.</p>
+            
+            <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                <input type="text" id="tagInput" placeholder="Etiket girin (örn: sfw, female)...">
+                <button class="btn btn-primary" onclick="analyzeTag()">🔍 Analiz Et</button>
+                <button class="btn btn-success" id="downloadAllBtn" style="display:none" onclick="startWebDownload()">⬇ Hepsini İndir</button>
+                <button class="btn btn-accent" onclick="stopProcess()">⛔ Durdur</button>
+            </div>
+
+            <div id="statsBox" class="stats-box">
+                <h3>Analiz Sonucu</h3>
+                <p>Bulunan Karakter: <strong id="foundCount">0</strong></p>
+                <p>Tahmini Sayfa: <strong id="estPages">0</strong></p>
+                <p style="font-size: 0.8em; color: #888;">*Not: Tarayıcı üzerinden çoklu indirme yaparken tarayıcınız "Birden fazla dosya indirilmesine izin verilsin mi?" diye sorabilir. İzin verin.</p>
+            </div>
+
+            <div class="log-area" id="consoleLog">
+                > Sistem hazır. Bekleniyor...
+            </div>
+        </div>
+
+        <!-- SAYFA 2: ARŞİV (Eski index_main.html) -->
+        <div id="archive" class="page-section">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h1>Karakter Arşivi</h1>
+                <div>
+                    <label class="btn btn-primary">
+                        📂 Klasör Seç
+                        <input type="file" id="folderInput" webkitdirectory directory multiple style="display: none;">
+                    </label>
+                    <input type="text" id="archiveSearch" placeholder="Arşivde ara..." style="width: 200px; margin-left: 10px;">
+                </div>
+            </div>
+            <p id="archiveStatus" style="color: var(--accent-sec); margin-top: 10px;">Lütfen karakter klasörünü seçin.</p>
+            
+            <div class="grid-container" id="gallery"></div>
+            
+            <!-- Modal (Arşiv Detay) -->
+            <div id="charModal" class="modal">
+                <span class="close-btn" onclick="closeModal()">&times;</span>
+                <div class="modal-content">
+                    <div style="width: 40%;"><img id="mImage" src="" style="width:100%; border-radius:8px;"></div>
+                    <div style="width: 60%; color: #ddd;">
+                        <h2 id="mName"></h2>
+                        <button id="downloadJsonBtn" class="btn btn-success">⬇ JSON İndir</button>
+                        <p id="mDesc" style="white-space: pre-wrap; margin-top: 20px; height: 300px; overflow-y: auto; background: #111; padding: 10px;"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SAYFA 3: DÖNÜŞTÜRÜCÜ (Eski index_conv.html) -->
+        <div id="converter" class="page-section">
+            <h1>Perchance Dönüştürücü</h1>
+            
+            <div class="drop-zone" id="dropZoneConv">
+                <p>📂 JSON Dosyalarını Buraya Sürükle (V2 veya Tavern)</p>
+                <input type="file" id="convInput" multiple style="display: none;">
+            </div>
+            
+            <div id="convStatus" style="margin-top: 15px; font-weight: bold;"></div>
+            <button id="downloadConvBtn" class="btn btn-success" style="display:none; margin-top: 15px;">⬇ Dönüştürülenleri İndir</button>
+        </div>
+
+    </div>
+
+    <script src="static/script.js"></script>
+</body>
+</html>
